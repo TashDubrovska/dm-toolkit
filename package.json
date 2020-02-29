@@ -2,10 +2,86 @@
   "name": "dm-toolkit",
   "version": "0.0.1",
   "description": "Pen and paper dungeon master toolkit",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "TashDubrovska",
-  "license": "ISC"
+  "license": "ISC",
+  "main": "src/index.tsx",
+  "scripts": {
+    "develop": "rm -rf ./dist && concurrently -r \"npm:type-check:watch\" \"npm:start:dev\"",
+    "bundle": "rm -rf ./dist && parcel build ./src/client/index.html",
+    "start:dev": "parcel ./src/client/index.html",
+    "start:server": "node ./src/server/index.js",
+    "start": "npm run bundle && npm run start:server",
+    "build": "npm run type-check && parcel build ./src/index.html --public-url '/'",
+    "prettify": "prettier --write './src/**/*.{ts,tsx}'",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "tsc --noEmit --watch"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettify"
+    }
+  },
+  "engines": {
+    "node": ">= 10.19.0",
+    "npm": ">= 6.13.4"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/config/setupTests.ts"
+    ],
+    "moduleNameMapper": {
+      ".+\\.css$": "<rootDir>/src/styleMock.ts"
+    },
+    "testMatch": [
+      "**/__tests__/*.(test|spec).(ts|tsx|js)"
+    ]
+  },
+  "keywords": [
+    "Typescript",
+    "React",
+    "Parcel"
+  ],
+  "dependencies": {
+    "express": "4.17.1",
+    "morgan": "1.9.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "6.12.2",
+    "@testing-library/jest-dom": "5.1.1",
+    "@testing-library/react": "9.4.1",
+    "@types/enzyme": "3.10.5",
+    "@types/enzyme-adapter-react-16": "1.0.6",
+    "@types/express": "^4.17.2",
+    "@types/jest": "^24.0.11",
+    "@types/node": "^11.13.6",
+    "@types/react": "^16.8.14",
+    "@types/react-dom": "^16.8.4",
+    "@typescript-eslint/eslint-plugin": "2.21.0",
+    "@typescript-eslint/parser": "2.21.0",
+    "concurrently": "^4.1.0",
+    "enzyme": "3.11.0",
+    "enzyme-adapter-react-16": "1.15.2",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.10.0",
+    "eslint-config-react": "1.1.7",
+    "eslint-plugin-prettier": "3.1.2",
+    "husky": "^1.3.1",
+    "jest": "^24.7.1",
+    "jest-extended": "^0.11.1",
+    "parcel-bundler": "^1.12.3",
+    "prettier": "^1.17.0",
+    "react-test-renderer": "^16.8.6",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.4.4"
+  }
 }
