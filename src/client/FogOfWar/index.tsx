@@ -1,20 +1,23 @@
 import React, { useRef, useEffect, useState } from 'react'
 
 export default () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
-  const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
-  const [canvasContext, setCanvasContext] = useState<CanvasRenderingContext2D | null>(null);
+  const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null)
+  const [
+    canvasContext,
+    setCanvasContext,
+  ] = useState<CanvasRenderingContext2D | null>(null)
 
   useEffect(() => {
     if (!canvasRef.current) {
       return
     }
-    const canvas: HTMLCanvasElement = canvasRef.current;
+    const canvas: HTMLCanvasElement = canvasRef.current
 
-    setCanvas(canvas);
-    setCanvasContext(canvas.getContext('2d'));
-  }, []);
+    setCanvas(canvas)
+    setCanvasContext(canvas.getContext('2d'))
+  }, [])
 
   return (
     <canvas
@@ -31,4 +34,4 @@ export default () => {
       }}
     />
   )
-};
+}
