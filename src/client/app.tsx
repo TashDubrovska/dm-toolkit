@@ -1,11 +1,8 @@
-import React from 'react';
-import {render} from 'react-dom';
+import React from 'react'
+import { render } from 'react-dom'
 
-import FogOfWar from './FogOfWar';
+import FogOfWar from './FogOfWar'
 
 window.onload = () => {
-  render(
-    <FogOfWar />,
-    document.getElementById('app'),
-  );
-};
+  render(<FogOfWar />, document.getElementById('app'))
+}
