@@ -1,53 +1,71 @@
-import React, { useRef, useEffect, useState, StatelessComponent, SyntheticEvent, ChangeEvent } from 'react';
+import React, { useState, StatelessComponent, ChangeEvent } from 'react'
 
 interface Participant {
-  name: string;
-  initiative: number;
-};
+  name: string
+  initiative: number
+}
 
-const Result: StatelessComponent<{participants: Participant[]}> = ({participants}) => {
-  const cleanParticipants = participants.filter(({name}) => name);
+const Result: StatelessComponent<{ participants: Participant[] }> = ({
+  participants,
+}) => {
+  const cleanParticipants = participants.filter(
+    ({ name, initiative }) => name && (initiative || initiative === 0)
+  )
   const sortedParticipants = cleanParticipants.sort(
-    (
-      {initiative: initiative1},
-      {initiative: initiative2}
-    ) => initiative2 - initiative1
-  );
+    ({ initiative: initiative1 }, { initiative: initiative2 }) =>
+      initiative2 - initiative1
+  )
+
+  const [renderedParticipants, setRenderedParticipants] = useState<
+    Participant[]
+  >(sortedParticipants)
 
   return (
     <table>
       <thead>
-        <th>Name</th>
-        <th>Initiative</th>
+        <tr>
+          <th>Name</th>
+          <th>Initiative</th>
+          <th></th>
+        </tr>
       </thead>
       <tbody>
-        {sortedParticipants.map(
-          ({name, initiative}, index) => (
-            <tr key={index}>
-              <th>{name}</th>
-              <td>{initiative}</td>
-            </tr>
-          )
-        )}
+        {renderedParticipants.map(({ name, initiative }, index) => (
+          <tr key={index}>
+            <th>{name}</th>
+            <td>{initiative}</td>
+            <td>
+              <button
+                onClick={(): void => {
+                  const newRenderedParticipants: Participant[] = JSON.parse(
+                    JSON.stringify(renderedParticipants)
+                  )
+                  newRenderedParticipants.splice(index, 1)
+
+                  setRenderedParticipants(newRenderedParticipants)
+                }}
+              >
+                Kill!
+              </button>
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
-  );
-};
+  )
+}
 
 const ParticipantInput: StatelessComponent<{
-  name: string;
-  initiative: number;
-  index: number;
+  name: string
+  initiative: number
+  index: number
   onInputChange: (event: ChangeEvent<HTMLInputElement>) => void
-}> = ({name, initiative, index, onInputChange}) => {
-  const sharedId = `${index}-participant`;
+}> = ({ name, initiative, index, onInputChange }) => {
+  const sharedId = `${index}-participant`
 
   return (
     <div className="participant">
-      <label
-        className="participant__label"
-        htmlFor={`${sharedId}-name`}
-      >
+      <label className="participant__label" htmlFor={`${sharedId}-name`}>
         Name
       </label>
       <input
@@ -58,11 +76,8 @@ const ParticipantInput: StatelessComponent<{
         onInput={onInputChange}
         value={name}
       />
-    
-      <label
-        className="participant__label"
-        htmlFor={`${sharedId}-initiative`}
-      >
+
+      <label className="participant__label" htmlFor={`${sharedId}-initiative`}>
         Initiative
       </label>
       <input
@@ -80,61 +95,62 @@ const ParticipantInput: StatelessComponent<{
 export default () => {
   const newParticipantObject = {
     name: '',
-    initiative: NaN
-  };
-  
-  const [participants, setParticipants] = useState<Participant[]>([newParticipantObject]);
-  const [isSubmitted, setIsSubmitted] = useState<Boolean>(false);
+    initiative: NaN,
+  }
+
+  const [participants, setParticipants] = useState<Participant[]>([
+    newParticipantObject,
+  ])
+  const [isSubmitted, setIsSubmitted] = useState<Boolean>(false)
 
   const addParticipant = () => {
-    const newParticipants = JSON.parse(JSON.stringify(participants));
-    
-    newParticipants.push(newParticipantObject);
+    const newParticipants = JSON.parse(JSON.stringify(participants))
 
-    setParticipants(newParticipants);
-  };
+    newParticipants.push(newParticipantObject)
+
+    setParticipants(newParticipants)
+  }
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const {
-      target: {name, value}
-    } = event;
+      target: { name, value },
+    } = event
     // Deep copy array to avoid unwanted mutations
-    const newParticipants = JSON.parse(JSON.stringify(participants));
+    const newParticipants = JSON.parse(JSON.stringify(participants))
 
-    const nameParts = name.split('-');
-    const index = nameParts[0];
-    const key = nameParts[2];
+    const nameParts = name.split('-')
+    const index = nameParts[0]
+    const key = nameParts[2]
 
     if (index && key) {
-      const participantObject = newParticipants[index];
+      const participantObject = newParticipants[index]
 
-      participantObject[key] = key === 'initiative' ? parseInt(value) : value;
-      newParticipants[index] = participantObject;
+      participantObject[key] = key === 'initiative' ? parseInt(value) : value
+      newParticipants[index] = participantObject
 
-      setParticipants(newParticipants);
+      setParticipants(newParticipants)
     }
   }
 
   return (
     <div className="participants">
-      {
-        !isSubmitted ?
+      {!isSubmitted ? (
         <>
-          {
-            participants.map(({name, initiative}, index) =>
-              <ParticipantInput
-                name={name}
-                initiative={initiative}
-                index={index}
-                onInputChange={handleInputChange}
-              />
-            )
-          }
+          {participants.map(({ name, initiative }, index) => (
+            <ParticipantInput
+              name={name}
+              initiative={initiative}
+              index={index}
+              onInputChange={handleInputChange}
+              key={index}
+            />
+          ))}
           <button onClick={addParticipant}>Another!</button>
           <button onClick={() => setIsSubmitted(true)}>To battle</button>
-        </> :
+        </>
+      ) : (
         <Result participants={participants} />
-      }
+      )}
     </div>
   )
 }
