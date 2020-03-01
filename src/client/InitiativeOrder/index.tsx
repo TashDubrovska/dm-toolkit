@@ -1,4 +1,9 @@
-import React, { useState, StatelessComponent, ChangeEvent } from 'react'
+import React, {
+  useState,
+  useEffect,
+  StatelessComponent,
+  ChangeEvent,
+} from 'react'
 
 interface Participant {
   name: string
@@ -8,17 +13,21 @@ interface Participant {
 const Result: StatelessComponent<{ participants: Participant[] }> = ({
   participants,
 }) => {
-  const cleanParticipants = participants.filter(
-    ({ name, initiative }) => name && (initiative || initiative === 0)
-  )
-  const sortedParticipants = cleanParticipants.sort(
-    ({ initiative: initiative1 }, { initiative: initiative2 }) =>
-      initiative2 - initiative1
-  )
-
   const [renderedParticipants, setRenderedParticipants] = useState<
     Participant[]
-  >(sortedParticipants)
+  >([])
+
+  useEffect(() => {
+    const cleanParticipants = participants.filter(
+      ({ name, initiative }) => name && (initiative || initiative === 0)
+    )
+    const sortedParticipants = cleanParticipants.sort(
+      ({ initiative: initiative1 }, { initiative: initiative2 }) =>
+        initiative2 - initiative1
+    )
+
+    setRenderedParticipants(sortedParticipants)
+  }, [])
 
   return (
     <table>
