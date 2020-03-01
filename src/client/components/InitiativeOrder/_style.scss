@@ -1,0 +1,36 @@
+@import '../../common/variables';
+
+.participants {
+  background-color: $medium;
+  color: $font-dark;
+  height: 100%;
+
+  &__controls {
+    display: flex;
+
+    &__button {
+      appearance: none;
+      background-color: $accent;
+      display: block;
+      border: 0;
+      color: $font-light;
+      text-transform: uppercase;
+      font-weight: 600;
+      width: 100%;
+      font-size: 1.4rem;
+      padding: $spacing-sm;
+
+      &:first-child:not(:last-child) {
+        border-right: 2px solid $font-light;
+      }
+
+      &--next {
+        background-color: $medium-highligh;
+      }
+    }
+  }
+
+  &__list {
+    overflow-y: auto;
+  }
+}

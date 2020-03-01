@@ -1,0 +1,56 @@
+@import '../../../common/variables';
+
+.participant {
+  display: flex;
+  justify-content: space-between;
+  padding: $spacing-sm;
+
+  &--odd {
+    background-color: $light;
+  }
+
+  &--active {
+    background-color: $light-highlight;
+  }
+
+  &__input {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    background-color: transparent;
+    color: $font-light;
+    font-size: 1.14rem;
+    line-height: 0.85;
+    border-left: 2px solid $divider-light;
+    padding-left: $spacing-sm;
+
+    &--name {
+      width: 60%;
+    }
+
+    &--initiative {
+      width: 20%;
+    }
+  }
+
+  &__button {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+    height: $spacing-lg;
+    cursor: pointer;
+
+    &--remove {
+      img {
+        transform: rotate(45deg);
+      }
+    }
+
+    img {
+      display: block;
+      height: 100%;
+    }
+  }
+}

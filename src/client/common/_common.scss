@@ -1,0 +1,10 @@
+@import '~normalize.css/normalize';
+
+@import './variables';
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: $font-light;
+  background-color: $dark;
+}

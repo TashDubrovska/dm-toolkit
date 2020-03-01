@@ -22,8 +22,8 @@ export default () => {
   return (
     <canvas
       ref={canvasRef}
-      width={window.innerWidth}
-      height={window.innerHeight}
+      width={100}
+      height={100}
       onMouseDown={e => {
         if (!canvasContext || !canvas) {
           return

@@ -38,20 +38,33 @@
       "<rootDir>/config/setupTests.ts"
     ],
     "moduleNameMapper": {
-      ".+\\.css$": "<rootDir>/src/styleMock.ts"
+      ".+\\.scss$": "<rootDir>/src/styleMock.ts"
     },
     "testMatch": [
       "**/__tests__/*.(test|spec).(ts|tsx|js)"
     ]
   },
+  "sass": {
+    "includePaths": [
+      "node_modules"
+    ]
+  },
+  "browserslist": [
+    "> 2%",
+    "last 2 version",
+    "not dead"
+  ],
   "keywords": [
     "Typescript",
     "React",
     "Parcel"
   ],
   "dependencies": {
+    "classnames": "2.2.6",
     "express": "4.17.1",
     "morgan": "1.9.1",
+    "normalize-scss": "7.0.1",
+    "normalize.css": "8.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
@@ -59,6 +72,7 @@
     "@testing-library/dom": "6.12.2",
     "@testing-library/jest-dom": "5.1.1",
     "@testing-library/react": "9.4.1",
+    "@types/classnames": "2.2.9",
     "@types/enzyme": "3.10.5",
     "@types/enzyme-adapter-react-16": "1.0.6",
     "@types/express": "^4.17.2",
@@ -81,6 +95,7 @@
     "parcel-bundler": "^1.12.3",
     "prettier": "^1.17.0",
     "react-test-renderer": "^16.8.6",
+    "sass": "^1.26.2",
     "ts-jest": "^24.0.2",
     "typescript": "^3.4.4"
   }

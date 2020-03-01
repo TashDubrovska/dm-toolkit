@@ -1,0 +1,25 @@
+@import '../common/variables';
+@import '../common/mixins';
+
+.battle {
+  min-height: 100%;
+  @include media-breakpoint-up($lg) {
+    display: flex;
+  }
+
+  &__map {
+    @include media-breakpoint-up($lg) {
+      flex-basis: 80%;
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
+  }
+
+  &__initiative {
+    @include media-breakpoint-up($lg) {
+      flex-basis: 20%;
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
+  }
+}

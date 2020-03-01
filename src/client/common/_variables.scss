@@ -1,0 +1,31 @@
+// Colours
+$dark: #313131;
+$medium: #414141;
+$light: #525252;
+$accent: #ca3e47;
+
+$medium-highligh: #142850;
+$light-highlight: #27496d;
+
+// Font colours
+$font-light: #fff;
+$font-dark: #333;
+
+// Dividers
+$divider-light: #c1c1c1;
+
+// Spacing
+$spacing-base: 8px;
+
+$spacing-xs: $spacing-base / 2;
+$spacing-sm: $spacing-base;
+$spacing-md: $spacing-base * 2;
+$spacing-lg: $spacing-base * 3;
+$spacing-xl: $spacing-base * 4;
+
+// Breakpoints
+$xs: 320px;
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
